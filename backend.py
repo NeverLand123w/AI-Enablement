@@ -17,7 +17,7 @@ from langchain_core.output_parsers import StrOutputParser
 # Security Initialization
 load_dotenv()
 if not os.getenv("GOOGLE_API_KEY"):
-    raise ValueError("Missing GOOGLE_API_KEY. Get it free from aistudio.google.com")
+    raise ValueError("Missing GOOGLE_API_KEY.")
 
 # Ensure static directory exists to prevent FileNotFoundError
 os.makedirs("static", exist_ok=True)
@@ -43,7 +43,7 @@ prompt = ChatPromptTemplate.from_messages([
               "Client: {client_name}\n"
               "Invoice No: {invoice_id}\n"
               "Amount: ${amount}\n"
-              "Due Date: {due_date}\n" # <--- Added Fix
+              "Due Date: {due_date}\n"
               "Days Overdue: {days_overdue}\n"
               "Payment Link: {payment_link}\n\n"
               "Write the email.")
