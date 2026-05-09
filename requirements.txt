@@ -1,6 +1,7 @@
-fastapi
-uvicorn[standard]
+fastapi[all]
+uvicorn
 pandas
 langchain-core
 langchain-google-genai
 python-dotenv
+

@@ -146,12 +146,12 @@ cp index.html static/index.html
 
 **5. Start the server**
 ```bash
-uvicorn backend:app --reload --port 8000
+python -m uvicorn backend:app --reload
 ```
 
 **6. Open the dashboard**
 
-Navigate to [http://localhost:8000](http://localhost:8000) and click **Process Invoices**.
+Navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and click **Process Invoices**.
 ## Sample Output
 
 
