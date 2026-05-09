@@ -192,5 +192,5 @@ Navigate to [http://127.0.0.1:8000/](http://127.0.0.1:8000/) and click **Process
 ## Author
 
 **Mayank Negi**  
-AI Enablement — 
+Finance Credit Follow-Up Email Agent  — 
 [mayanknegi15011@gmail.com.com]
