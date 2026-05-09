@@ -4,570 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI ENABLEMENT</title>
+    <title>Collections Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0
-        }
-
-        :root {
-            --bg: #f8fafc;
-            --surface: #ffffff;
-            --surface2: #f1f5f9;
-            --border: #e2e8f0;
-            --text: #334155;
-            --heading: #0f172a;
-            --muted: #64748b;
-            --subtle: #94a3b8;
-            --blue: #2563eb;
-            --blue-dim: #eff6ff;
-            --red: #ef4444;
-            --red-dim: #fef2f2;
-            --green: #10b981;
-            --green-dim: #ecfdf5;
-            --amber: #f59e0b;
-            --amber-dim: #fffbeb;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            overflow-x: hidden
-        }
-
-        header {
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            padding: 0 32px;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .header-left h1 {
-            font-size: 16px;
-            font-weight: 600;
-            color: var(--heading);
-            letter-spacing: -0.2px
-        }
-
-        .header-left p {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 2px
-        }
-
-        .run-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--blue);
-            color: #fff;
-            font-size: 13px;
-            font-weight: 500;
-            padding: 9px 18px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-            transition: all 0.2s
-        }
-
-        .run-btn:hover {
-            background: #1d4ed8;
-        }
-
-        .run-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .spinner {
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            display: none
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg)
-            }
-        }
-
-        .dashboard {
-            padding: 28px 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .metrics-row {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px
-        }
-
-        .metric-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .metric-label {
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--muted)
-        }
-
-        .metric-value {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-top: 6px;
-            color: var(--heading)
-        }
-
-        .metric-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 4px
-        }
-
-        .metric-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 500;
-            padding: 4px 10px;
-            border-radius: 6px;
-            margin-top: 12px
-        }
-
-        .charts-row {
-            display: grid;
-            grid-template-columns: 1fr 1.5fr;
-            gap: 16px
-        }
-
-        .chart-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 20px 22px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 18px
-        }
-
-        .card-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--heading)
-        }
-
-        .card-sub {
-            font-size: 13px;
-            color: var(--muted);
-            margin-top: 3px
-        }
-
-        .chart-wrap {
-            position: relative
-        }
-
-        .donut-container {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            justify-content: space-between;
-        }
-
-        .donut-wrap {
-            position: relative;
-            width: 130px;
-            height: 130px;
-            flex-shrink: 0
-        }
-
-        .donut-center {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none
-        }
-
-        .donut-center-num {
-            font-size: 20px;
-            font-weight: 700;
-            color: var(--heading)
-        }
-
-        .donut-center-label {
-            font-size: 11px;
-            color: var(--muted);
-            margin-top: 2px
-        }
-
-        .legend {
-            display: flex;
-            flex-direction: column;
-            gap: 22px
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 10px
-        }
-
-        .legend-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 4px;
-            flex-shrink: 0
-        }
-
-        .legend-info-name {
-            font-size: 13px;
-            font-weight: 500;
-            color: var(--text)
-        }
-
-        .legend-info-val {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 1px
-        }
-
-        .aging-legend {
-            display: flex;
-            gap: 14px;
-            margin-top: 16px;
-            border-top: 1px solid var(--border);
-            padding-top: 12px;
-        }
-
-        .aging-leg-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: var(--text)
-        }
-
-        .aging-leg-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 3px;
-            flex-shrink: 0
-        }
-
-        .tables-row {
-            display: grid;
-            grid-template-columns: 1fr 340px;
-            gap: 16px
-        }
-
-        .table-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            display: flex;
-            flex-direction: column;
-            max-height: 480px;
-            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .table-head-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 18px 22px;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-            background: var(--surface);
-            border-radius: 10px 10px 0 0;
-        }
-
-        .table-scroll {
-            overflow-y: auto;
-            flex: 1;
-            border-radius: 0 0 10px 10px;
-            background: var(--surface);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 13px
-        }
-
-        thead th {
-            background: var(--surface2);
-            color: var(--muted);
-            font-size: 12px;
-            font-weight: 600;
-            padding: 12px 18px;
-            text-align: left;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            border-bottom: 1px solid var(--border);
-        }
-
-        tbody tr {
-            border-bottom: 1px solid var(--border);
-            transition: background 0.15s
-        }
-
-        tbody tr:hover {
-            background: var(--bg)
-        }
-
-        td {
-            padding: 16px 18px;
-            vertical-align: top
-        }
-
-        .client-name {
-            font-weight: 600;
-            color: var(--heading);
-            font-size: 14px
-        }
-
-        .invoice-id {
-            font-size: 12px;
-            color: var(--muted);
-            margin-top: 4px
-        }
-
-        .amount {
-            font-size: 14px;
-            font-weight: 600;
-            color: var(--heading);
-            margin-top: 6px
-        }
-
-        .days-badge {
-            display: inline-block;
-            font-size: 11px;
-            font-weight: 600;
-            padding: 4px 10px;
-            border-radius: 4px
-        }
-
-        .tone-tag {
-            font-size: 11px;
-            color: var(--text);
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            padding: 3px 8px;
-            border-radius: 4px;
-            margin-top: 8px;
-            display: inline-block
-        }
-
-        .email-draft {
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            padding: 12px 14px;
-            font-size: 12px;
-            color: var(--text);
-            line-height: 1.6;
-            overflow-y: auto;
-            margin-top: 4px;
-            white-space: pre-wrap
-        }
-
-        .risk-scroll {
-            overflow-y: auto;
-            flex: 1;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            background: var(--bg);
-            border-radius: 0 0 10px 10px;
-        }
-
-        .risk-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            position: relative;
-            transition: box-shadow 0.2s;
-            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        }
-
-        .risk-card:hover {
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .risk-left-bar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: var(--red);
-            border-radius: 8px 0 0 8px
-        }
-
-        .risk-client {
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--heading);
-            padding-left: 8px
-        }
-
-        .risk-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-left: 8px;
-            margin-top: 10px
-        }
-
-        .risk-invoice {
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        .risk-amount {
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--heading)
-        }
-
-        .risk-days {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--red);
-            background: var(--red-dim);
-            padding: 3px 8px;
-            border-radius: 4px
-        }
-
-        .risk-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start
-        }
-
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 48px 20px;
-            gap: 12px;
-            color: var(--muted)
-        }
-
-        .empty-state i {
-            font-size: 40px;
-            color: var(--subtle)
-        }
-
-        .empty-state p {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--heading)
-        }
-
-        .empty-state span {
-            font-size: 13px;
-            color: var(--muted)
-        }
-
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px
-        }
-
-        ::-webkit-scrollbar-track {
-            background: transparent
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8
-        }
-
-        /* --- New Table UX Styles --- */
-        .action-btn {
-            background: #fff;
-            color: var(--text);
-            border: 1px solid var(--border);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .action-btn:hover {
-            background: var(--surface2);
-        }
-
-        .draft-row {
-            display: none;
-            background: #fafafa;
-        }
-
-        .draft-row.open {
-            display: table-row;
-        }
-
-        .draft-container {
-            padding: 16px 22px;
-            border-top: 1px dashed var(--border);
-        }
-
-        .main-row td {
-            vertical-align: middle;
-        }
-    </style>
 </head>
 
 <body>
@@ -587,13 +28,17 @@
 
         <div class="metrics-row">
             <div class="metric-card">
-                <div class="metric-label">Actioned Capital</div>
+                <div class="metric-label">
+                    Actioned Capital
+                </div>
                 <div class="metric-value" id="kpi-amount">$0.00</div>
                 <div class="metric-sub">Total value of addressed invoices</div>
             </div>
             <div class="metric-card">
-                <div class="metric-label">High Risk Flags</div>
-                <div class="metric-value" style="color:var(--red)" id="kpi-flags">0</div>
+                <div class="metric-label">
+                    High Risk Flags
+                </div>
+                <div class="metric-value" style="color:var(--danger)" id="kpi-flags">0</div>
                 <div class="metric-sub">Invoices requiring urgent attention</div>
             </div>
         </div>
@@ -610,7 +55,7 @@
                 <div class="donut-container">
                     <div class="legend">
                         <div class="legend-item">
-                            <div class="legend-dot" style="background:var(--blue);"></div>
+                            <div class="legend-dot" style="color:var(--brand); background:var(--brand)"></div>
                             <div class="legend-info">
                                 <div class="legend-info-name">Processed</div>
                                 <div class="legend-info-val"><span id="leg-processed">0</span> emails sent</div>
@@ -618,7 +63,7 @@
                         </div>
                     </div>
                     <div class="donut-wrap">
-                        <canvas id="statusChart" width="130" height="130"></canvas>
+                        <canvas id="statusChart" width="140" height="140"></canvas>
                         <div class="donut-center">
                             <div class="donut-center-num" id="donut-total">0</div>
                             <div class="donut-center-label">Total</div>
@@ -626,14 +71,14 @@
                     </div>
                     <div class="legend">
                         <div class="legend-item">
-                            <div class="legend-dot" style="background:var(--red);"></div>
+                            <div class="legend-dot" style="color:var(--danger); background:var(--danger)"></div>
                             <div class="legend-info">
                                 <div class="legend-info-name">Flagged</div>
                                 <div class="legend-info-val"><span id="leg-flagged">0</span> need review</div>
                             </div>
                         </div>
                         <div class="legend-item">
-                            <div class="legend-dot" style="background:var(--border)"></div>
+                            <div class="legend-dot" style="color:var(--subtle); background:var(--subtle)"></div>
                             <div class="legend-info">
                                 <div class="legend-info-name">Pending</div>
                                 <div class="legend-info-val">Awaiting run</div>
@@ -655,13 +100,13 @@
                 </div>
                 <div class="aging-legend">
                     <div class="aging-leg-item">
-                        <div class="aging-leg-dot" style="background:var(--green)"></div> 0–15 days (early)
+                        <div class="aging-leg-dot" style="background:var(--success)"></div> 0–15 days
                     </div>
                     <div class="aging-leg-item">
-                        <div class="aging-leg-dot" style="background:var(--blue)"></div> 16–30 days (follow-up)
+                        <div class="aging-leg-dot" style="background:var(--brand)"></div> 16–30 days
                     </div>
                     <div class="aging-leg-item">
-                        <div class="aging-leg-dot" style="background:var(--red)"></div> 30+ days (critical)
+                        <div class="aging-leg-dot" style="background:var(--danger)"></div> 30+ days
                     </div>
                 </div>
             </div>
@@ -673,8 +118,8 @@
                 <div class="table-head-bar">
                     <div style="display:flex;align-items:center;gap:10px">
                         <div>
-                            <div style="font-size:15px;font-weight:600;color:var(--heading)">Communications Queue</div>
-                            <div style="font-size:12px;color:var(--muted);margin-top:2px">Drafted emails ready for
+                            <div style="font-size:14px;font-weight:600;color:var(--heading)">Communications Queue</div>
+                            <div style="font-size:12px;color:var(--muted);margin-top:4px">Drafted messages ready for
                                 review</div>
                         </div>
                     </div>
@@ -708,16 +153,16 @@
                 <div class="table-head-bar">
                     <div style="display:flex;align-items:center;gap:10px">
                         <div>
-                            <div style="font-size:15px;font-weight:600;color:var(--heading)">High Risk</div>
-                            <div style="font-size:12px;color:var(--muted);margin-top:2px">30+ days overdue</div>
+                            <div style="font-size:14px;font-weight:600;color:var(--heading)">High Risk</div>
+                            <div style="font-size:12px;color:var(--muted);margin-top:4px">30+ days overdue</div>
                         </div>
                     </div>
                 </div>
                 <div class="risk-scroll" id="review-list">
                     <div class="empty-state">
-                        <i class="ti ti-circle-check" aria-hidden="true"></i>
-                        <p>No critical flags</p>
-                        <span>All invoices within threshold</span>
+                        <i class="ti ti-shield-check" aria-hidden="true"></i>
+                        <p>System Clear</p>
+                        <span>No critical flags detected</span>
                     </div>
                 </div>
             </div>
@@ -725,8 +170,10 @@
     </div>
 
     <script>
-        Chart.defaults.color = '#64748b';
-        Chart.defaults.font.family = "'Inter',sans-serif";
+        // Updated Chart.js defaults for premium dark mode
+        Chart.defaults.color = '#71717a';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.font.size = 11;
 
         let statusChart = null, agingChart = null;
 
@@ -734,7 +181,9 @@
             const ctx = document.getElementById('statusChart').getContext('2d');
             const hasData = (p + f) > 0;
             const data = hasData ? [p, f] : [1];
-            const bg = hasData ? ['#2563eb', '#ef4444'] : ['#e2e8f0'];
+
+            // Sleek Indigo and Red
+            const bg = hasData ? ['#6366f1', '#f87171'] : ['#27272a'];
 
             const donutTotal = document.getElementById('donut-total');
             if (donutTotal) donutTotal.innerText = (p + f) || '–';
@@ -759,19 +208,26 @@
                     datasets: [{
                         data,
                         backgroundColor: bg,
-                        borderWidth: 3,
-                        borderColor: '#ffffff',
-                        hoverOffset: 4
+                        borderWidth: 4,
+                        borderColor: '#121214', // Matches the exact surface background
+                        hoverOffset: 2
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: true,
-                    cutout: '78%',
+                    cutout: '80%',
                     plugins: {
                         legend: { display: false },
                         tooltip: {
                             enabled: hasData,
+                            backgroundColor: '#18181b',
+                            titleColor: '#fafafa',
+                            bodyColor: '#a1a1aa',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            padding: 10,
+                            boxPadding: 4,
                             callbacks: { label: function (ctx) { return ' ' + ctx.label + ': ' + ctx.raw } }
                         }
                     }
@@ -789,13 +245,14 @@
             agingChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['0–15 days', '16–30 days', '30+ days'],
+                    labels: ['0–15d', '16–30d', '30d+'],
                     datasets: [{
                         label: 'Invoices',
                         data: [b1, b2, b3],
-                        backgroundColor: ['#10b981', '#2563eb', '#ef4444'],
+                        backgroundColor: ['#34d399', '#6366f1', '#f87171'],
                         borderRadius: 4,
-                        barThickness: 32
+                        barThickness: 24,
+                        borderSkipped: false
                     }]
                 },
                 options: {
@@ -803,17 +260,27 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: { display: false },
-                        tooltip: { callbacks: { label: function (ctx) { return ' ' + ctx.raw + ' invoices' } } }
+                        tooltip: {
+                            backgroundColor: '#18181b',
+                            titleColor: '#fafafa',
+                            bodyColor: '#a1a1aa',
+                            borderColor: 'rgba(255,255,255,0.1)',
+                            borderWidth: 1,
+                            padding: 10,
+                            callbacks: { label: function (ctx) { return ' ' + ctx.raw + ' invoices' } }
+                        }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            grid: { color: '#f1f5f9', drawBorder: false },
-                            ticks: { precision: 0, stepSize: 1, color: '#64748b' }
+                            grid: { color: 'rgba(255, 255, 255, 0.04)', drawBorder: false },
+                            ticks: { precision: 0, stepSize: 1, color: '#71717a' },
+                            border: { display: false }
                         },
                         x: {
                             grid: { display: false, drawBorder: false },
-                            ticks: { color: '#64748b' }
+                            ticks: { color: '#71717a', font: { weight: 500 } },
+                            border: { display: false }
                         }
                     }
                 }
@@ -827,10 +294,12 @@
             const btn = document.getElementById('runBtn');
             const btnText = document.getElementById('btnText');
             const loader = document.getElementById('loader');
+            const icon = btn.querySelector('.ti-player-play-filled');
 
             btn.disabled = true;
             btnText.innerText = 'Processing...';
             loader.style.display = 'block';
+            if (icon) icon.style.display = 'none';
 
             try {
                 await fetch('/api/run-agent', { method: 'POST' });
@@ -842,6 +311,7 @@
                 btn.disabled = false;
                 btnText.innerText = 'Process Invoices';
                 loader.style.display = 'none';
+                if (icon) icon.style.display = 'block';
             }
         }
 
@@ -849,12 +319,6 @@
             try {
                 const res = await fetch('/api/logs');
                 const data = await res.json();
-
-                // FIX: Check if elements exist before assigning text so app does not crash if HTML id is removed.
-                const kpiEmails = document.getElementById('kpi-emails');
-                if (kpiEmails) {
-                    kpiEmails.innerText = data.emails.length;
-                }
 
                 const kpiFlags = document.getElementById('kpi-flags');
                 if (kpiFlags) {
@@ -880,7 +344,12 @@
 
                 const emailList = document.getElementById('email-list');
                 if (data.emails.length > 0) {
-                    emailList.innerHTML = data.emails.map((e, index) => `
+                    emailList.innerHTML = data.emails.map((e, index) => {
+                        const isLate = e.days_overdue > 15;
+                        const badgeColor = isLate ? 'var(--warning)' : 'var(--brand)';
+                        const badgeBg = isLate ? 'var(--warning-dim)' : 'var(--brand-dim)';
+
+                        return `
                         <tr class="main-row">
                             <td>
                                 <div class="client-name">${e.client_name}</div>
@@ -890,25 +359,27 @@
                                 <div class="amount">$${e.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
                             </td>
                             <td>
-                                <span class="days-badge" style="${e.days_overdue > 15 ? 'background:var(--amber-dim);color:var(--amber)' : 'background:var(--blue-dim);color:var(--blue)'}">${e.days_overdue} days</span>
-                                <span class="tone-tag">${e.tone_used}</span>
-                                <span class="tone-tag" style="background:#fdf4ff; border-color:#f0abfc; color:#a21caf;">${e.send_status}</span>
+                                <div class="status-tags">
+                                    <span class="badge" style="color:${badgeColor}; background-color:${badgeBg}; border-color:transparent;">${e.days_overdue} days</span>
+                                    <span class="tone-tag">${e.tone_used}</span>
+                                    <span class="tone-tag" style="background: rgba(250, 250, 250, 0.05); color: #fafafa;">${e.send_status}</span>
+                                </div>
                             </td>
                             <td style="text-align: right;">
                                 <button class="action-btn" onclick="document.getElementById('draft-${index}').classList.toggle('open')">
-                                    <i class="ti ti-mail"></i> View Draft
+                                    <i class="ti ti-code"></i> Preview
                                 </button>
                             </td>
                         </tr>
                         <tr id="draft-${index}" class="draft-row">
                             <td colspan="4" style="padding: 0;">
                                 <div class="draft-container">
-                                    <div style="font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 8px; text-transform: uppercase;">Generated Email Preview</div>
-                                    <div class="email-draft" style="margin-top: 0; background: #fff;">${e.generated_email}</div>
+                                    <div style="font-size: 11px; font-weight: 500; color: var(--muted); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Generated Payload</div>
+                                    <div class="email-draft">${e.generated_email}</div>
                                 </div>
                             </td>
                         </tr>
-                    `).join('');
+                    `}).join('');
                 } else {
                     emailList.innerHTML = `<tr><td colspan="4"><div class="empty-state"><i class="ti ti-inbox" aria-hidden="true"></i><p>No records found</p></div></td></tr>`;
                 }
@@ -917,19 +388,19 @@
                 if (data.reviews.length > 0) {
                     reviewList.innerHTML = data.reviews.map(r => `
                         <div class="risk-card">
-                            <div class="risk-left-bar"></div>
+                            <div class="risk-left-indicator"></div>
                             <div class="risk-top">
                                 <div class="risk-client">${r.client_name}</div>
-                                <span class="risk-days">${r.days_overdue}d</span>
+                                <span class="badge" style="color:var(--danger); background-color:var(--danger-dim); border-color:transparent;">${r.days_overdue}d</span>
                             </div>
                             <div class="risk-meta">
-                                <div class="risk-invoice">${r.invoice_id}<br><span style="font-size:10px; margin-top:4px; display:inline-block">${r.timestamp}</span></div>
+                                <div class="risk-invoice">${r.invoice_id}<br><span style="font-size:11px; margin-top:6px; display:inline-block; color:var(--subtle)">${r.timestamp}</span></div>
                                 <div class="risk-amount">$${r.amount.toLocaleString(undefined, { minimumFractionDigits: 2 })}</div>
                             </div>
                         </div>
                     `).join('');
                 } else {
-                    reviewList.innerHTML = `<div class="empty-state"><i class="ti ti-circle-check" aria-hidden="true"></i><p>No critical flags</p><span>All within threshold</span></div>`;
+                    reviewList.innerHTML = `<div class="empty-state"><i class="ti ti-shield-check" aria-hidden="true"></i><p>System Clear</p><span>No critical flags detected</span></div>`;
                 }
             } catch (e) { console.error(e) }
         }
