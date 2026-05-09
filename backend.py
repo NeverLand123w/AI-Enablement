@@ -17,7 +17,7 @@ from langchain_core.output_parsers import StrOutputParser
 # Security Initialization
 load_dotenv()
 if not os.getenv("GOOGLE_API_KEY"):
-    raise ValueError("Missing GOOGLE_API_KEY. Get it free from aistudio.google.com")
+    raise ValueError("Missing GOOGLE_API_KEY.")
 
 # Ensure static directory exists to prevent FileNotFoundError
 os.makedirs("static", exist_ok=True)
