@@ -1,0 +1,11 @@
+.env
+static/emails.json
+static/review.json
+
+__pycache__/
+*.pyc
+*.pyo
+
+venv/
+.venv/
+env/

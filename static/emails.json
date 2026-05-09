@@ -1,0 +1,42 @@
+[
+    {
+        "timestamp": "2026-05-09 21:45:56",
+        "send_status": "Simulated Send (Dry-run)",
+        "invoice_id": "INV-001",
+        "client_name": "Sahil Tamrakar",
+        "tone_used": "Warm & Friendly",
+        "generated_email": "Subject: Just a friendly reminder about your recent invoice!\n\nHi Sahil,\n\nHope you're having a great week!\n\nThis is just a gentle nudge regarding invoice INV-001 for $150.00, which was due on May 6th, 2026. We understand that things can get busy, so we wanted to send a friendly reminder.\n\nYou can easily take care of this at your convenience by clicking here: http://pay/1\n\nThanks so much for your prompt attention to this!\n\nFinance Department",
+        "days_overdue": 3,
+        "amount": 150.0
+    },
+    {
+        "timestamp": "2026-05-09 21:45:58",
+        "send_status": "Simulated Send (Dry-run)",
+        "invoice_id": "INV-002",
+        "client_name": "Harsh Vardhan Saini",
+        "tone_used": "Polite but Firm",
+        "generated_email": "Subject: Gentle Reminder: Invoice INV-002 - Payment Overdue\n\nDear Harsh Vardhan Saini,\n\nThis is a polite reminder regarding invoice INV-002, for the amount of $4200.50.\n\nOur records indicate that this invoice was due on 2026-04-27 and is now 12 days overdue. We understand that oversights can happen, and we would appreciate your prompt attention to this matter.\n\nYou can conveniently settle your outstanding balance by visiting the following payment link: http://pay/2\n\nThank you for your immediate attention to this.\n\nFinance Department",
+        "days_overdue": 12,
+        "amount": 4200.5
+    },
+    {
+        "timestamp": "2026-05-09 21:45:59",
+        "send_status": "Simulated Send (Dry-run)",
+        "invoice_id": "INV-003",
+        "client_name": "Mayank Negi",
+        "tone_used": "Formal & Serious",
+        "generated_email": "Subject: Overdue Invoice Reminder - Invoice INV-003\n\nDear Mayank Negi,\n\nThis email serves as a formal reminder regarding your outstanding invoice, INV-003, for the amount of $89.99.\n\nOur records indicate that this invoice was due on April 21, 2026, and is now 18 days past due. We kindly request that you settle this balance at your earliest convenience.\n\nYou may make a payment via the following secure link: http://pay/3\n\nWe appreciate your prompt attention to this matter.\n\nFinance Department",
+        "days_overdue": 18,
+        "amount": 89.99
+    },
+    {
+        "timestamp": "2026-05-09 21:46:02",
+        "send_status": "Simulated Send (Dry-run)",
+        "invoice_id": "INV-004",
+        "client_name": "Parth Gupta",
+        "tone_used": "Stern & Urgent",
+        "generated_email": "Subject: IMMEDIATE ACTION REQUIRED: Overdue Invoice INV-004 - $15000.00\n\nDear Parth Gupta,\n\nThis is a stern notification regarding your outstanding invoice, INV-004, for the amount of $15000.00. This invoice is now 26 days past its due date of April 13, 2026.\n\nImmediate payment is required to resolve this overdue balance. Failure to do so will result in further action.\n\nPlease remit payment immediately via the following link: http://pay/4\n\nFinance Department",
+        "days_overdue": 26,
+        "amount": 15000.0
+    }
+]
