@@ -1,0 +1,13 @@
+.env
+static/emails.json
+static/review.json
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/    
