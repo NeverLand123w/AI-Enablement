@@ -1,4 +1,4 @@
-# AI-Powered Accounts Receivable
+# Finance Credit & Follow-Up Email Agent
 
 This project is an **AI-powered Accounts Receivable (AR) automation agent** that automatically generates personalised, tone-escalated follow-up emails for overdue invoices — reducing manual effort for the Finance team while maintaining professional client communication.
 
