@@ -6,6 +6,12 @@ The agent reads invoice data, calculates how many days each invoice is overdue, 
 
 A **web dashboard** lets the Finance team trigger the agent, view drafted emails, and monitor aging metrics — all in one place.
 
+##Submissions
+- **Demo Recording**: https://drive.google.com/file/d/10LVQPAEZCJ7Pw3Udb2PwmnnL6klpi11J/view?usp=sharing
+- **Review JSON (30+ days overdue json data)**: https://drive.google.com/file/d/1YTBPwIVLfoZ7xFqp6bsKkAR7B7nAfchi/view?usp=sharing
+- **Emails JSON (1-30 days json data)**: https://drive.google.com/file/d/1B4dSZGsX-6nqrsQ4UaEWH1WXXB1OEwgm/view?usp=sharing
+- **PPT**: https://docs.google.com/presentation/d/1fHunpIMGtbyZn1mqQpIpobtKHPTiymGD/edit?usp=sharing&ouid=108205003042160165234&rtpof=true&sd=true
+
 
 ## Business Problem
 
